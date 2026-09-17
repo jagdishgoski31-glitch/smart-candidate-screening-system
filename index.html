@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Smart Candidate Screening System for placement coordinators" />
+  <title>Smart Candidate Screening System</title>
+  <style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f7fb;color:#172033}.topbar{background:#fff;border-bottom:1px solid #e7eaf0;padding:28px 5%;display:flex;align-items:center;justify-content:space-between;gap:20px}.topbar h1{margin:4px 0;font-size:clamp(24px,3vw,36px)}.subtitle{margin:5px 0 0;color:#697386}.eyebrow{margin:0;font-size:11px;font-weight:800;letter-spacing:1.4px;color:#5b6475}.container{width:min(1400px,90%);margin:28px auto}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}.stat-card{background:#fff;border:1px solid #e7eaf0;border-radius:14px;padding:20px;box-shadow:0 4px 18px #1720330a}.stat-card span{display:block;color:#697386;font-size:13px}.stat-card strong{display:block;font-size:30px;margin-top:7px}.strong-card{border-top:4px solid #2f8f62}.average-card{border-top:4px solid #d39b27}.needs-card{border-top:4px solid #c95353}.panel{background:#fff;border:1px solid #e7eaf0;border-radius:14px;margin-bottom:20px;box-shadow:0 4px 18px #1720330a;overflow:hidden}.filters{padding:20px}.panel-heading h2,.table-header h2{margin:0 0 4px;font-size:18px}.panel-heading p,.table-header p{margin:0;color:#697386;font-size:13px}.filter-grid{display:grid;grid-template-columns:2fr 1fr 1.3fr 1.3fr 1.3fr;gap:12px;margin-top:18px}.filter-grid label{font-size:12px;font-weight:700;color:#4d5668}.filter-grid input,.filter-grid select{display:block;width:100%;margin-top:6px;padding:11px 12px;border:1px solid #d9dee8;border-radius:9px;background:#fff;font:inherit;color:#172033}.table-header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid #e7eaf0}.legend{display:flex;gap:14px;font-size:12px;color:#697386}.legend span{display:flex;align-items:center;gap:6px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.strong-dot{background:#2f8f62}.average-dot{background:#d39b27}.needs-dot{background:#c95353}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:1050px}th,td{text-align:left;padding:14px 16px;border-bottom:1px solid #eef0f4;font-size:13px;vertical-align:middle}th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#7a8392;background:#fafbfc}td small{display:block;color:#8a93a1;margin-top:3px}.tag{display:inline-block;background:#eef2f7;border-radius:5px;padding:4px 7px;margin:2px;font-size:11px}.badge{display:inline-block;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}.strong{background:#e5f4ed;color:#22714e}.average{background:#fff2d9;color:#966a0e}.needs-improvement{background:#fde7e7;color:#a13c3c}.cgpa{font-weight:800}.view-btn,.secondary-btn{border:1px solid #d6dbe5;background:#fff;padding:8px 11px;border-radius:8px;cursor:pointer;font-weight:700;color:#344054}.view-btn:hover,.secondary-btn:hover{background:#f2f4f8}.secondary-btn{padding:10px 14px}.empty{text-align:center;padding:40px;color:#697386}.modal{position:fixed;inset:0;background:#17203380;display:grid;place-items:center;padding:20px;z-index:10}.hidden{display:none}.modal-card{position:relative;background:#fff;border-radius:16px;width:min(650px,100%);max-height:90vh;overflow:auto;padding:28px;box-shadow:0 20px 60px #17203333}.close-btn{position:absolute;right:16px;top:12px;border:0;background:transparent;font-size:28px;cursor:pointer;color:#697386}.modal-card h2{margin:5px 0}.muted{color:#697386;font-size:13px}.profile-score{display:flex;align-items:center;gap:12px;margin:22px 0}.profile-score>strong{font-size:32px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail-grid div{border:1px solid #e7eaf0;border-radius:10px;padding:13px}.detail-grid span{display:block;color:#7a8392;font-size:11px;text-transform:uppercase;margin-bottom:5px}.detail-grid strong{font-size:13px}.explanation{margin-top:16px;background:#f6f8fb;border-radius:10px;padding:15px;font-size:13px}.explanation p{margin:7px 0 0;color:#586273;line-height:1.55}@media(max-width:900px){.stats-grid{grid-template-columns:1fr 1fr}.filter-grid{grid-template-columns:1fr 1fr}.topbar{align-items:flex-start;flex-direction:column}}@media(max-width:560px){.stats-grid,.filter-grid,.detail-grid{grid-template-columns:1fr}.container{width:94%}.topbar{padding:22px 3%}.legend{display:none}}
+
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">PLACEMENT INTELLIGENCE</p>
+      <h1>Smart Candidate Screening System</h1>
+      <p class="subtitle">Transparent screening for faster, consistent shortlisting.</p>
+    </div>
+    <button id="resetBtn" class="secondary-btn">Reset filters</button>
+  </header>
+
+  <main class="container">
+    <section class="stats-grid" aria-label="Batch summary">
+      <article class="stat-card">
+        <span>Total Students</span>
+        <strong id="totalCount">0</strong>
+      </article>
+      <article class="stat-card strong-card">
+        <span>Strong</span>
+        <strong id="strongCount">0</strong>
+      </article>
+      <article class="stat-card average-card">
+        <span>Average</span>
+        <strong id="averageCount">0</strong>
+      </article>
+      <article class="stat-card needs-card">
+        <span>Needs Improvement</span>
+        <strong id="needsCount">0</strong>
+      </article>
+    </section>
+
+    <section class="panel filters">
+      <div class="panel-heading">
+        <div>
+          <h2>Find candidates</h2>
+          <p>Use multiple filters together to narrow the shortlist.</p>
+        </div>
+      </div>
+      <div class="filter-grid">
+        <label>
+          Search
+          <input id="searchInput" type="search" placeholder="Name or email..." />
+        </label>
+        <label>
+          Minimum CGPA
+          <input id="cgpaInput" type="number" min="0" max="10" step="0.1" placeholder="e.g. 8" />
+        </label>
+        <label>
+          Skill
+          <select id="skillFilter"><option value="">All skills</option></select>
+        </label>
+        <label>
+          Branch
+          <select id="branchFilter"><option value="">All branches</option></select>
+        </label>
+        <label>
+          Category
+          <select id="categoryFilter">
+            <option value="">All categories</option>
+            <option value="Strong">Strong</option>
+            <option value="Average">Average</option>
+            <option value="Needs Improvement">Needs Improvement</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="table-header">
+        <div>
+          <h2>Student shortlist</h2>
+          <p id="resultText">Showing all students</p>
+        </div>
+        <div class="legend">
+          <span><i class="dot strong-dot"></i>Strong</span>
+          <span><i class="dot average-dot"></i>Average</span>
+          <span><i class="dot needs-dot"></i>Needs Improvement</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Branch</th>
+              <th>CGPA</th>
+              <th>Skills</th>
+              <th>Projects</th>
+              <th>Internship</th>
+              <th>Certifications</th>
+              <th>Category</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="studentTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button id="closeModal" class="close-btn" aria-label="Close">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+const students = [
+  {id:1,name:"Aarav Gupta",email:"aarav.g@gmail.com",phone:"9876543210",branch:"Computer Science",cgpa:9.3,skills:["MERN","AWS","Next.js"],projects:["E-commerce Web App","Chat Application"],internship:"SDE Intern at Amazon",certifications:["AWS Cloud Practitioner","Meta Front-End Developer"]},
+  {id:2,name:"Ishita Verma",email:"ishita.v21@gmail.com",phone:"8765432109",branch:"Information Technology",cgpa:8.9,skills:["React","Node.js","MongoDB"],projects:["Task Management System"],internship:"Frontend Intern at TCS",certifications:["Google UX Design"]},
+  {id:3,name:"Rohan Nair",email:"rnair.dev@gmail.com",phone:"7654321098",branch:"Computer Science",cgpa:9.1,skills:["Python","Django","React"],projects:["Social Media Dashboard","Portfolio App"],internship:"Web Dev Intern at Infosys",certifications:["IBM Full Stack Software Developer"]},
+  {id:4,name:"Megha Sharma",email:"megha.sharma99@gmail.com",phone:"6543210987",branch:"Software Engineering",cgpa:8.5,skills:["Java","Spring Boot","React"],projects:["Inventory Management System"],internship:"Java Developer Intern at Wipro",certifications:["Oracle Certified Associate"]},
+  {id:5,name:"Karthik Reddy",email:"karthik.r@gmail.com",phone:"9012345678",branch:"Computer Science",cgpa:8.2,skills:["JavaScript","Express","SQL"],projects:["Weather App","Blog Platform"],internship:"Software Intern at Tech Mahindra",certifications:["HackerRank JavaScript (Basic)"]},
+  {id:6,name:"Sneha Desai",email:"snehad.22@gmail.com",phone:"8123456790",branch:"Electronics",cgpa:7.6,skills:["HTML","CSS","JavaScript"],projects:["Personal Website"],internship:"None",certifications:[]},
+  {id:7,name:"Aditya Kumar",email:"aditya.k45@gmail.com",phone:"9123456781",branch:"Mechanical",cgpa:7.1,skills:["Python","SQL"],projects:["Data Analysis on Sales Data"],internship:"None",certifications:["Google Data Analytics"]},
+  {id:8,name:"Neha Singh",email:"nehasingh.01@gmail.com",phone:"7123456789",branch:"Information Technology",cgpa:7.8,skills:["Java","HTML","CSS"],projects:["Library Management System"],internship:"Trainee at WebX",certifications:[]},
+  {id:9,name:"Vivek Joshi",email:"vivek.j@gmail.com",phone:"8234567890",branch:"Computer Science",cgpa:6.9,skills:["C++","HTML"],projects:["Calculator App"],internship:"None",certifications:[]},
+  {id:10,name:"Pooja Patel",email:"poojap.tech@gmail.com",phone:"9345678901",branch:"Civil",cgpa:7.4,skills:["Python","Excel"],projects:["Student Database System"],internship:"None",certifications:[]},
+  {id:11,name:"Amit Chawla",email:"amit.c00@gmail.com",phone:"9456789012",branch:"Civil",cgpa:5.9,skills:["MS Word"],projects:[],internship:"None",certifications:[]},
+  {id:12,name:"Suman Rao",email:"suman.rao1@gmail.com",phone:"8567890123",branch:"Mechanical",cgpa:6.1,skills:["Windows","Data Entry"],projects:["Basic HTML Page"],internship:"None",certifications:[]},
+  {id:13,name:"Deepak Tiwari",email:"deepakt.77@gmail.com",phone:"7678901234",branch:"Electronics",cgpa:5.4,skills:["MS Excel"],projects:[],internship:"None",certifications:[]},
+  {id:14,name:"Meera Reddy",email:"meera.r3@gmail.com",phone:"9789012345",branch:"Chemical",cgpa:6.3,skills:["Basic Computer"],projects:[],internship:"None",certifications:[]},
+  {id:15,name:"Rajeev Menon",email:"rajeev.m9@gmail.com",phone:"8890123456",branch:"Mechanical",cgpa:5.2,skills:["MS Office"],projects:[],internship:"None",certifications:[]}
+];
+
+function scoreStudent(s) {
+  let score = 0;
+  if (s.cgpa >= 9) score += 4;
+  else if (s.cgpa >= 8) score += 3;
+  else if (s.cgpa >= 7) score += 2;
+  else if (s.cgpa >= 6) score += 1;
+
+  if (s.skills.length >= 4) score += 2;
+  else if (s.skills.length >= 2) score += 1;
+
+  if (s.projects.length >= 2) score += 2;
+  else if (s.projects.length === 1) score += 1;
+
+  if (s.internship && s.internship.toLowerCase() !== "none") score += 1;
+  if (s.certifications.length > 0) score += 1;
+
+  const category = score >= 8 ? "Strong" : score >= 5 ? "Average" : "Needs Improvement";
+  return {score, category};
+}
+
+students.forEach(s => Object.assign(s, scoreStudent(s)));
+
+const $ = id => document.getElementById(id);
+
+function populateFilters() {
+  [...new Set(students.flatMap(s => s.skills))].sort().forEach(skill => {
+    const o = document.createElement("option"); o.value = skill; o.textContent = skill; $("skillFilter").appendChild(o);
+  });
+  [...new Set(students.map(s => s.branch))].sort().forEach(branch => {
+    const o = document.createElement("option"); o.value = branch; o.textContent = branch; $("branchFilter").appendChild(o);
+  });
+}
+
+function filteredStudents() {
+  const search = $("searchInput").value.trim().toLowerCase();
+  const minCgpa = parseFloat($("cgpaInput").value);
+  const skill = $("skillFilter").value;
+  const branch = $("branchFilter").value;
+  const category = $("categoryFilter").value;
+
+  return students.filter(s =>
+    (!search || s.name.toLowerCase().includes(search) || s.email.toLowerCase().includes(search)) &&
+    (Number.isNaN(minCgpa) || s.cgpa >= minCgpa) &&
+    (!skill || s.skills.includes(skill)) &&
+    (!branch || s.branch === branch) &&
+    (!category || s.category === category)
+  );
+}
+
+function render() {
+  const list = filteredStudents();
+  $("studentTable").innerHTML = list.length ? list.map(s => `
+    <tr>
+      <td><strong>${s.name}</strong><small>${s.email}</small></td>
+      <td>${s.branch}</td>
+      <td><span class="cgpa">${s.cgpa.toFixed(1)}</span></td>
+      <td>${s.skills.length ? s.skills.map(x => `<span class="tag">${x}</span>`).join("") : "—"}</td>
+      <td>${s.projects.length}</td>
+      <td>${s.internship === "None" ? "—" : "Yes"}</td>
+      <td>${s.certifications.length}</td>
+      <td><span class="badge ${s.category.toLowerCase().replaceAll(" ","-")}">${s.category}</span></td>
+      <td><button class="view-btn" data-id="${s.id}">View</button></td>
+    </tr>
+  `).join("") : `<tr><td colspan="9" class="empty">No students match these filters.</td></tr>`;
+
+  $("resultText").textContent = `Showing ${list.length} of ${students.length} students`;
+
+  $("totalCount").textContent = list.length;
+  $("strongCount").textContent = list.filter(s=>s.category==="Strong").length;
+  $("averageCount").textContent = list.filter(s=>s.category==="Average").length;
+  $("needsCount").textContent = list.filter(s=>s.category==="Needs Improvement").length;
+
+  document.querySelectorAll(".view-btn").forEach(btn => btn.addEventListener("click", () => openModal(Number(btn.dataset.id))));
+}
+
+function openModal(id) {
+  const s = students.find(x => x.id === id);
+  $("modalContent").innerHTML = `
+    <p class="eyebrow">STUDENT PROFILE</p>
+    <h2 id="modalTitle">${s.name}</h2>
+    <p class="muted">${s.email} · ${s.phone}</p>
+    <div class="profile-score"><strong>${s.score}/10</strong><span class="badge ${s.category.toLowerCase().replaceAll(" ","-")}">${s.category}</span></div>
+    <div class="detail-grid">
+      <div><span>Branch</span><strong>${s.branch}</strong></div>
+      <div><span>CGPA</span><strong>${s.cgpa.toFixed(1)}</strong></div>
+      <div><span>Skills</span><strong>${s.skills.join(", ") || "None listed"}</strong></div>
+      <div><span>Projects</span><strong>${s.projects.join(", ") || "None listed"}</strong></div>
+      <div><span>Internship</span><strong>${s.internship}</strong></div>
+      <div><span>Certifications</span><strong>${s.certifications.join(", ") || "None listed"}</strong></div>
+    </div>
+    <div class="explanation"><strong>Why this category?</strong><p>${explain(s)}</p></div>
+  `;
+  $("modal").classList.remove("hidden");
+}
+
+function explain(s) {
+  const parts = [];
+  const cgpaPts = s.cgpa >= 9 ? 4 : s.cgpa >= 8 ? 3 : s.cgpa >= 7 ? 2 : s.cgpa >= 6 ? 1 : 0;
+  const skillPts = s.skills.length >= 4 ? 2 : s.skills.length >= 2 ? 1 : 0;
+  const projectPts = s.projects.length >= 2 ? 2 : s.projects.length === 1 ? 1 : 0;
+  const internshipPts = s.internship !== "None" ? 1 : 0;
+  const certPts = s.certifications.length ? 1 : 0;
+  parts.push(`CGPA contributes ${cgpaPts}/4 points`);
+  parts.push(`${s.skills.length} listed skill(s) contribute ${skillPts}/2`);
+  parts.push(`${s.projects.length} project(s) contribute ${projectPts}/2`);
+  parts.push(`${internshipPts}/1 for internship experience`);
+  parts.push(`${certPts}/1 for certifications`);
+  return parts.join("; ") + `. Total: ${s.score}/10, which maps to ${s.category}.`;
+}
+
+["searchInput","cgpaInput","skillFilter","branchFilter","categoryFilter"].forEach(id => {
+  $(id).addEventListener("input", render);
+  $(id).addEventListener("change", render);
+});
+
+$("resetBtn").addEventListener("click", () => {
+  $("searchInput").value = "";
+  $("cgpaInput").value = "";
+  $("skillFilter").value = "";
+  $("branchFilter").value = "";
+  $("categoryFilter").value = "";
+  render();
+});
+
+$("closeModal").addEventListener("click", () => $("modal").classList.add("hidden"));
+$("modal").addEventListener("click", e => { if (e.target === $("modal")) $("modal").classList.add("hidden"); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") $("modal").classList.add("hidden"); });
+
+populateFilters();
+render();
+
+</script>
+</body>
+</html>
