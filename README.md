@@ -5,6 +5,8 @@ A web-based candidate screening interface for evaluating and shortlisting studen
 ## Project links:
 
 Live Demo : https://jagdishgoski31-glitch.github.io/smart-candidate-screening-system/
+
+
 Github Repositories : https://github.com/jagdishgoski31-glitch/smart-candidate-screening-system.git
 
 ## Overview
